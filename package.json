@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint -c .eslintrc --ext=.tsx,.ts pages components"
+    "lint": "eslint -c .eslintrc --ext=.tsx,.ts pages components",
+    "size": "next build && size-limit",
+    "test": "echo \"[TODO] : TESTS TO WRITE\" && exit 0"
   },
   "dependencies": {
     "@types/next": "^8.0.6",
@@ -19,6 +21,7 @@
     "react-dom": "16.9.0"
   },
   "devDependencies": {
+    "@size-limit/preset-app": "^2.1.6",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
     "eslint": "^6.4.0",
@@ -30,5 +33,10 @@
     "eslint-plugin-react": "^7.14.3",
     "prettier": "^1.18.2",
     "typescript": "^3.6.3"
-  }
+  },
+  "size-limit": [
+    {
+      "path": ".next/static/**/*.{ss,svg,woff,woff2,png,ttf,html}"
+    }
+  ]
 }
