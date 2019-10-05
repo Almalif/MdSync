@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "run": "next start",
     "lint": "eslint -c .eslintrc --ext=.tsx,.ts pages components",
     "size": "next build && size-limit",
     "test": "echo \"[TODO] : TESTS TO WRITE\" && exit 0"
@@ -32,7 +31,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
-    "prettier": "^1.18.2",
     "typescript": "^3.6.3"
   },
   "size-limit": [
