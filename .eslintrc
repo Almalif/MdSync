@@ -15,7 +15,10 @@
     },
     "rules": {
         "react/jsx-filename-extension": [0, { "extensions": [".jsx"] }], // disable config for jsx files
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "react/display-name": 0
     },
     "settings": {
         "react": {
