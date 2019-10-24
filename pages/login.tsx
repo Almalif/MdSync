@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
-import mdma from './mdma.png';
+// import mdma from '../public/mdma.png';
 
 type SubmitProps = {
   login: string;
@@ -25,7 +25,7 @@ export default (): React.ReactNode => {
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
-          <Image src={mdma} />
+          <Image src='/static/mdma.png' />
           Log-in to your account
         </Header>
         <Form size="large" onSubmit={() => handleSubmit({ login, password, setError })} error>

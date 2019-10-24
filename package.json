@@ -1,9 +1,9 @@
 {
-  "name": "with-semantic-ui",
+  "name": "md-sync",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "now-build": "next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint -c .eslintrc --ext=.tsx,.ts pages",
     "size": "next build && size-limit",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/js-cookie": "^2.2.4",
     "@types/semantic-ui": "^2.2.7",
+    "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.19.0",
     "js-cookie": "^2.2.1",
     "next": "latest",

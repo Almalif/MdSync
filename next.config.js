@@ -10,7 +10,7 @@ module.exports = withCSS({
         options: {
           limit: 8192,
           publicPath: '/_next/static/',
-          outputPath: 'static/',
+          outputPath: 'public/',
           name: '[name].[ext]'
         }
       }
