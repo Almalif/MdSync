@@ -7,8 +7,10 @@ const links = [{ href: '/', label: 'Home' }].map(link => {
 
 export default (): React.ReactNode[] => {
   return links.map(({ key, href, label }) => (
-    <Link href={href} key={key}>
-      <a href={href}>{label}</a>
-    </Link>
+    <div className="item" key={key}>
+      <Link href={href}>
+        <a href={href}>{label}</a>
+      </Link>
+    </div>
   ));
 };

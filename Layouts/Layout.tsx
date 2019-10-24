@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Button, Icon } from 'semantic-ui-react';
+import '../pages/styles.css';
+import 'semantic-ui-css/semantic.min.css';
 
 type PropsType = {
   children: React.ReactNode;
@@ -10,10 +9,8 @@ type PropsType = {
 
 export default ({ children }: PropsType) => {
   return (
-    <Container>
-      <Header />
+    <div>
       {children}
-      <Footer />
-    </Container>
+    </div>
   );
 };

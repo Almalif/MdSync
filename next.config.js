@@ -1,19 +1,20 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withTypescript = require('@zeit/next-typescript');
+const withCSS = require('@zeit/next-css')
 
-const { parsed: localEnv } = require('dotenv').config();
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const webpack = require('webpack');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withCSS = require('@zeit/next-css');
-
-module.exports = withTypescript(
-  withCSS({
-    webpack(config) {
-      config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-
-      return config;
-    },
-  }),
-);
+module.exports = withCSS({
+  target: 'serverless',
+  webpack (config) {
+    config.module.rules.push({
+      test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          publicPath: '/_next/static/',
+          outputPath: 'static/',
+          name: '[name].[ext]'
+        }
+      }
+    })
+    return config
+  }
+})
