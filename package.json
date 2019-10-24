@@ -1,38 +1,46 @@
 {
   "name": "md-sync",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint -c .eslintrc --ext=.tsx,.ts pages components",
+    "lint": "eslint -c .eslintrc --ext=.tsx,.ts pages",
     "size": "next build && size-limit",
     "test": "echo \"[TODO] : TESTS TO WRITE\" && exit 0"
   },
   "dependencies": {
-    "@types/next": "^8.0.6",
-    "@types/react": "^16.9.2",
+    "@types/js-cookie": "^2.2.4",
+    "@types/semantic-ui": "^2.2.7",
     "@zeit/next-typescript": "^1.1.1",
-    "antd": "^3.23.5",
-    "next": "9.0.6",
-    "next-seo": "^2.1.0",
-    "react": "16.9.0",
-    "react-dom": "16.9.0"
+    "axios": "^0.19.0",
+    "js-cookie": "^2.2.1",
+    "next": "latest",
+    "next-cookies": "^1.1.3",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.1"
   },
   "devDependencies": {
     "@size-limit/preset-app": "^2.1.6",
-    "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.3.0",
-    "eslint": "^6.4.0",
+    "@types/node": "^12.11.1",
+    "@types/react": "^16.9.9",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
+    "@zeit/next-css": "^1.0.1",
+    "eslint": "^6.5.1",
     "eslint-config-airbnb-typescript": "^5.0.0",
-    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react": "^7.16.0",
+    "file-loader": "^3.0.1",
     "prettier": "^1.18.2",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.0"
   },
   "size-limit": [
     {

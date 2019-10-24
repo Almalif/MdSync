@@ -1,13 +1,26 @@
 import React from 'react';
 import Head from 'next/head';
-import Nav from '../nav';
+
+import NavLinks from './nav';
+
+import 'semantic-ui-css/semantic.min.css';
+import { Image } from 'semantic-ui-react';
 
 const Header = () => {
   return (
-    <Head>
-      <Nav />
-      <title>Home</title>
-    </Head>
+    <div>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <div className="ui secondary  menu">
+        <div>
+          <Image src="static/assets/capsule.svg" width="30px" />
+        </div>
+        <div>
+          {NavLinks()}
+        </div>
+      </div>
+    </div>
   );
 };
 
