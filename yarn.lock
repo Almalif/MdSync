@@ -942,6 +942,11 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
+"@types/qs@^6.5.3":
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.5.3.tgz#1c3b71b091eaeaf5924538006b7f70603ce63d38"
+  integrity sha512-Jugo5V/1bS0fRhy2z8+cUAHEyWOATaz4rbyLVvcFs7+dXp5HfwpEwzF1Q11bB10ApUqHf+yTauxI0UXQDwGrbA==
+
 "@types/react@^16.9.9":
   version "16.9.10"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.10.tgz#87c2a7cd715d293c42fe73510eec42cba3ee8210"
@@ -2653,6 +2658,25 @@ dot-prop@^5.0.0:
   integrity sha512-QCHI6Lkf+9fJMpwfAFsTvbiSh6ujoPmhCLiDvD/n4dGtLvHfhuBwPdN6z2x4YSOwwtTcLoO/LP70xELWGF/JVA==
   dependencies:
     is-obj "^2.0.0"
+
+dotenv-defaults@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/dotenv-defaults/-/dotenv-defaults-1.0.2.tgz#441cf5f067653fca4bbdce9dd3b803f6f84c585d"
+  integrity sha512-iXFvHtXl/hZPiFj++1hBg4lbKwGM+t/GlvELDnRtOFdjXyWP7mubkVr+eZGWG62kdsbulXAef6v/j6kiWc/xGA==
+  dependencies:
+    dotenv "^6.2.0"
+
+dotenv-webpack@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/dotenv-webpack/-/dotenv-webpack-1.7.0.tgz#4384d8c57ee6f405c296278c14a9f9167856d3a1"
+  integrity sha512-wwNtOBW/6gLQSkb8p43y0Wts970A3xtNiG/mpwj9MLUhtPCQG6i+/DSXXoNN7fbPCU/vQ7JjwGmgOeGZSSZnsw==
+  dependencies:
+    dotenv-defaults "^1.0.2"
+
+dotenv@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
+  integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
 
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
@@ -5753,6 +5777,11 @@ puppeteer-core@^1.17.0:
     proxy-from-env "^1.0.0"
     rimraf "^2.6.1"
     ws "^6.1.0"
+
+qs@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.0.tgz#d1297e2a049c53119cb49cca366adbbacc80b409"
+  integrity sha512-27RP4UotQORTpmNQDX8BHPukOnBP3p1uUJY5UnDhaJB+rMt9iMsok724XL+UHU23bEFOHRMQ2ZhI99qOWUMGFA==
 
 query-string@^4.1.0:
   version "4.3.4"

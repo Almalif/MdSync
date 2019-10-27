@@ -1,6 +1,5 @@
-export default (ctx: any) => {
-  if (ctx.req) {
-    ctx.res.writeHead(302, { Location: '/login' });
-    ctx.res.end();
-  }
+import Router from 'next/router';
+
+export default async (path: string) => {
+  await Router.push(path);
 };

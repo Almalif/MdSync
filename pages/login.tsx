@@ -2,24 +2,43 @@ import React, { useState } from 'react';
 import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
-// import mdma from '../public/mdma.png';
+import { post, MESSAGES_STATUS } from './../utils/Network';
+import redirect from '../utils/redirect';
 
 type SubmitProps = {
-  login: string;
+  mail: string;
   password: string;
   setError: Function;
 };
 
-const handleSubmit = async ({ login, password, setError }: SubmitProps) => {
-  if (login === '' || password === '') {
-    setError(true);
+const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
+  setError(MESSAGES_STATUS.LOADING);
+  if (mail === '' || password[0] !== password[1] || (password[0] === '' && password[1] === '')) {
+    setError(MESSAGES_STATUS.ERROR);
+  }
+
+  try {
+    const response = await post({
+      endpoint: '/login',
+      params: {
+        email: mail,
+        password: password[0],
+      },
+    });
+
+    console.log('response', response);
+    //TODO: ADD TOKEN IN COOKIES (cookie.set) AND CHECK IF COOKIE EXIST
+    redirect('/');
+    setError(MESSAGES_STATUS.OK);
+  } catch (e) {
+    setError(MESSAGES_STATUS.ERROR);
   }
 };
 
 export default (): React.ReactNode => {
-  const [login, setLogin] = useState<string>('');
+  const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<MESSAGES_STATUS>(MESSAGES_STATUS.NONE);
 
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
@@ -28,12 +47,18 @@ export default (): React.ReactNode => {
           <Image src="/static/mdma.png" />
           Log-in to your account
         </Header>
-        <Form size="large" onSubmit={() => handleSubmit({ login, password, setError })} error>
+        <Form
+          size="large"
+          onSubmit={() => handleSubmit({ mail, password, setError })}
+          error={error === MESSAGES_STATUS.ERROR}
+          success={error === MESSAGES_STATUS.OK}
+          loading={error === MESSAGES_STATUS.LOADING}
+        >
           <Segment stacked>
             <Form.Input
-              value={login}
+              value={mail}
               onChange={(_, { value }) => {
-                setLogin(value);
+                setMail(value);
               }}
               fluid
               icon="user"

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
-// import mdma from '/public/mdma.png';
+import { post, MESSAGES_STATUS } from './../utils/Network';
+import redirect from './../utils/redirect';
 
 type SubmitProps = {
   mail: string;
@@ -11,15 +12,30 @@ type SubmitProps = {
 };
 
 const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
+  setError(MESSAGES_STATUS.LOADING);
   if (mail === '' || password[0] !== password[1] || (password[0] === '' && password[1] === '')) {
-    setError(true);
+    setError(MESSAGES_STATUS.ERROR);
+  }
+
+  try {
+    const response = await post({
+      endpoint: '/users',
+      params: {
+        email: mail,
+        password: password[0],
+      },
+    });
+    if (response && response.data) redirect('/login');
+    setError(MESSAGES_STATUS.OK);
+  } catch (e) {
+    setError(MESSAGES_STATUS.ERROR);
   }
 };
 
 export default (): React.ReactNode => {
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<Array<string>>(['', '']);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<MESSAGES_STATUS>(MESSAGES_STATUS.NONE);
 
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
@@ -28,7 +44,13 @@ export default (): React.ReactNode => {
           <Image src="/static/mdma.png" />
           Sign-in
         </Header>
-        <Form size="large" onSubmit={() => handleSubmit({ mail, password, setError })} error>
+        <Form
+          size="large"
+          onSubmit={() => handleSubmit({ mail, password, setError })}
+          error={error === MESSAGES_STATUS.ERROR}
+          success={error === MESSAGES_STATUS.OK}
+          loading={error === MESSAGES_STATUS.LOADING}
+        >
           <Segment stacked>
             <Form.Group widths="equal">
               <Form.Input
@@ -64,7 +86,9 @@ export default (): React.ReactNode => {
                 type="password"
               />
             </Form.Group>
-            {error ? <Message error header="Sign-in failed !" content="Password must be identical." /> : null}
+            {error === MESSAGES_STATUS.ERROR ? (
+              <Message error header="Sign-in failed !" content="Wrong mail format or password are not indetical. :(" />
+            ) : null}
             <Button color="teal" fluid size="large">
               Login
             </Button>
