@@ -47,7 +47,7 @@ HomePage.getInitialProps = async (ctx: NextPageContext): Promise<any> => {
       ? Router.push('/login')
       : ctx && ctx.res && ctx.res.writeHead(302, { Location: '/login' }).end();
   try {
-    const response = await get({endpoint:'/usersinfos', token});
+    const response = await get({ endpoint: '/usersinfos', token });
     if (response.ok) {
       return response.data;
     }

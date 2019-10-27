@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
-import { post, MESSAGES_STATUS } from './../utils/Network';
+import { post, MESSAGES_STATUS } from '../utils/Network';
 import redirect from '../utils/redirect';
 
 type SubmitProps = {
@@ -18,7 +18,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   }
 
   try {
-    const response = await post({
+    await post({
       endpoint: '/login',
       params: {
         email: mail,
@@ -26,8 +26,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
       },
     });
 
-    console.log('response', response);
-    //TODO: ADD TOKEN IN COOKIES (cookie.set) AND CHECK IF COOKIE EXIST
+    // TODO: ADD TOKEN IN COOKIES (cookie.set) AND CHECK IF COOKIE EXIST
     redirect('/');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
