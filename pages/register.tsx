@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
-import { post, MESSAGES_STATUS } from './../utils/Network';
-import redirect from './../utils/redirect';
+import { post, MESSAGES_STATUS } from '../utils/Network';
+import redirect from '../utils/redirect';
 
 type SubmitProps = {
   mail: string;
