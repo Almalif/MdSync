@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
-import { post, MESSAGES_STATUS } from '../utils/Network';
+import 'react-semantic-toasts/styles/react-semantic-alert.css';
+import { MESSAGES_STATUS, post } from '../utils/Network';
 import redirect from '../utils/redirect';
 
 type SubmitProps = {
@@ -15,6 +17,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   setError(MESSAGES_STATUS.LOADING);
   if (mail === '' || password[0] !== password[1] || (password[0] === '' && password[1] === '')) {
     setError(MESSAGES_STATUS.ERROR);
+    return;
   }
 
   try {
@@ -28,6 +31,20 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
     if (response && response.data) redirect('/login');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
+    toast(
+      {
+        type: 'warning',
+        icon: 'info',
+        title: 'Warning Toast',
+        description: e.response.data,
+        animation: 'bounce',
+        time: 5000,
+        size: 'tiny',
+      },
+      () => {},
+      () => {},
+      () => {},
+    );
     setError(MESSAGES_STATUS.ERROR);
   }
 };
@@ -74,6 +91,7 @@ export default (): React.ReactNode => {
                 iconPosition="left"
                 placeholder="Password"
                 type="password"
+                error={error === MESSAGES_STATUS.ERROR}
               />
               <Form.Input
                 onChange={(_, { value }) => {
@@ -84,19 +102,18 @@ export default (): React.ReactNode => {
                 iconPosition="left"
                 placeholder="Confirm Password"
                 type="password"
+                error={error === MESSAGES_STATUS.ERROR}
               />
             </Form.Group>
-            {error === MESSAGES_STATUS.ERROR ? (
-              <Message error header="Sign-in failed !" content="Wrong mail format or password are not indetical. :(" />
-            ) : null}
             <Button color="teal" fluid size="large">
-              Login
+              Register
             </Button>
           </Segment>
         </Form>
         <Message>
           <a href="/login">Sign Up</a>
         </Message>
+        <SemanticToastContainer />
       </Grid.Column>
     </Grid>
   );
