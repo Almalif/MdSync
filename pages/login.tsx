@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Grid, Form, Button, Segment, Header, Image, Message } from 'semantic-ui-react';
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
+import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import { post, MESSAGES_STATUS } from '../utils/Network';
 import redirect from '../utils/redirect';
+import { login } from '../utils/auth';
 
 type SubmitProps = {
   mail: string;
@@ -13,23 +16,37 @@ type SubmitProps = {
 
 const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   setError(MESSAGES_STATUS.LOADING);
-  if (mail === '' || password[0] !== password[1] || (password[0] === '' && password[1] === '')) {
+  if (mail === '' || password === '') {
     setError(MESSAGES_STATUS.ERROR);
+    return;
   }
 
   try {
-    await post({
-      endpoint: '/login',
+    const response = await post({
+      endpoint: '/users/login',
       params: {
         email: mail,
-        password: password[0],
+        password,
       },
     });
-
-    // TODO: ADD TOKEN IN COOKIES (cookie.set) AND CHECK IF COOKIE EXIST
+    login(response.data);
     redirect('/');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
+    toast(
+      {
+        type: 'warning',
+        icon: 'info',
+        title: 'Warning Toast',
+        description: e.response.data,
+        animation: 'bounce',
+        time: 5000,
+        size: 'tiny',
+      },
+      () => {},
+      () => {},
+      () => {},
+    );
     setError(MESSAGES_STATUS.ERROR);
   }
 };
@@ -74,7 +91,6 @@ export default (): React.ReactNode => {
               placeholder="Confirm Password"
               type="password"
             />
-            {error ? <Message error header="Connection failed !" content="Invalid login or password." /> : null}
             <Button color="teal" fluid size="large">
               Login
             </Button>
@@ -83,6 +99,7 @@ export default (): React.ReactNode => {
         <Message>
           <a href="/register">Sign Up</a>
         </Message>
+        <SemanticToastContainer />
       </Grid.Column>
     </Grid>
   );
