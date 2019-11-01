@@ -40,3 +40,7 @@ now
 ## The idea behind the example
 
 This example shows how to use Next.js along with [Semantic UI React](http://react.semantic-ui.com) including handling of external styles and assets. This is intended to show the integration of this UI toolkit with the Framework.
+
+
+##.env vars to set: 
+- SERVER_URL
