@@ -5,7 +5,7 @@ import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 import * as Network from '../../utils/Network';
 
 const Home = () => {
-  const [filename, setFilename] = useState<string>('')
+  const [filename, setFilename] = useState<string>('');
   const createFile = async () => {
     try {
       const response = await Network.post({
@@ -38,7 +38,12 @@ const Home = () => {
   };
   return (
     <div>
-      <Input placeholder="File name.." onChange={(_, { value })  => {setFilename(value)}} />
+      <Input
+        placeholder="File name.."
+        onChange={(_, { value }) => {
+          setFilename(value);
+        }}
+      />
       <Button size="massive" onClick={createFile}>
         Create file
       </Button>
