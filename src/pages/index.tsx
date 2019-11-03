@@ -18,7 +18,7 @@ HomePage.getInitialProps = async (ctx: NextPageContext): Promise<any> => {
   if (!token) {
     await redirect('/login');
   }
-  return {}
+  return {};
 };
 
-export default HomePage ;
+export default HomePage;
