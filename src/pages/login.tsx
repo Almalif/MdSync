@@ -5,8 +5,8 @@ import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import { post, MESSAGES_STATUS } from '../utils/Network';
-import redirect from '../utils/redirect';
 import { login } from '../utils/auth';
+import redirect from '../utils/redirect';
 
 type SubmitProps = {
   mail: string;
@@ -30,7 +30,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
       },
     });
     login(response.data);
-    redirect('/');
+    await redirect('/');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
     toast(

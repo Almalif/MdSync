@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
 import Layout from '../../Layouts/Layout';
-
 import Document from './document';
-
+import redirect from '../../utils/redirect';
 import { get } from '../../utils/Network';
-import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
 const getFileName = async (id: string | string[], setIdFile: any) => {
   try {
-    const response = await get({endpoint: `/files/${id}`})
+    const response = await get({ endpoint: `/files/${id}` });
     const idFile = response && response.id;
-    if (typeof idFile === 'string')
-      setIdFile(idFile)
-  }
-  catch (e) {
+    if (typeof idFile === 'string') setIdFile(idFile);
+  } catch (e) {
     toast(
       {
         type: 'warning',
@@ -32,20 +30,24 @@ const getFileName = async (id: string | string[], setIdFile: any) => {
     );
     return null;
   }
-}
+  return null;
+};
 
 const FilePage = () => {
-  const [idFile, setIdFile] = useState<string|null>(null)
+  const token = cookie.get('token');
+  if (!token) {
+    redirect('/login');
+  }
+  const [idFile, setIdFile] = useState<string | null>(null);
   const router = useRouter();
   const fileId = router && router.query && router.query.id;
-  if (fileId)
-    getFileName(fileId, setIdFile);
+  if (fileId) getFileName(fileId, setIdFile);
 
   return (
     <Layout>
       <SemanticToastContainer />
       <div style={{ height: '90vh' }}>
-        <Document idFile={idFile}/>
+        <Document idFile={idFile} />
       </div>
     </Layout>
   );
