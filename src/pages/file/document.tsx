@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Divider, Grid, Segment, Form, TextArea } from 'semantic-ui-react';
 import renderHTML from 'react-html-parser';
+import io from 'socket.io-client';
 
 import renderMd from '../../utils/Markdown';
 import MenuBar from './menuBar';
@@ -8,7 +9,12 @@ import MenuBar from './menuBar';
 const Document = () => {
   const [md, setMd] = useState('');
 
-  const saveFile = (): void => {};
+  console.log('CACACACACA');
+  // const socket = useState(io('https://7273602c.ngrok.io/'))[0];
+
+  const saveFile = (): void => {
+    // socket.emit('update', 'cacaboudin');
+  };
 
   return (
     <div style={{ height: '100%' }}>
@@ -39,4 +45,5 @@ const Document = () => {
     </div>
   );
 };
+
 export default Document;
