@@ -36,6 +36,7 @@ const Document = (props: any) => {
             <Grid.Column stretched style={{ height: '100%' }}>
               <Form style={{ width: '100%' }}>
                 <TextArea
+                  value={md}
                   style={{ minHeight: '100%', minWidth: '100%' }}
                   placeholder="Write your markdown here"
                   onChange={(_, b) => {
