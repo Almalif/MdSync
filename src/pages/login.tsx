@@ -38,7 +38,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
         type: 'warning',
         icon: 'info',
         title: 'Warning Toast',
-        description: e.response.data,
+        description: e && e.response && e.response.data,
         animation: 'bounce',
         time: 5000,
         size: 'tiny',

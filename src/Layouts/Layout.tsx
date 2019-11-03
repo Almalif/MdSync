@@ -2,6 +2,7 @@ import React from 'react';
 // import { Button, Icon } from 'semantic-ui-react';
 import '../pages/styles.css';
 import 'semantic-ui-css/semantic.min.css';
+import Header from '../components/Header';
 
 type PropsType = {
   children: React.ReactNode;
@@ -10,7 +11,8 @@ type PropsType = {
 export default ({ children }: PropsType) => {
   return (
     <div>
-      {children}
+      <Header />
+      <div>{children}</div>
     </div>
   );
 };
