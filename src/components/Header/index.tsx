@@ -1,10 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
+import { Image } from 'semantic-ui-react';
 
 import NavLinks from './nav';
 
 import 'semantic-ui-css/semantic.min.css';
-import { Image } from 'semantic-ui-react';
 
 const Header = () => {
   return (
@@ -16,9 +16,7 @@ const Header = () => {
         <div>
           <Image src="static/assets/capsule.svg" width="30px" />
         </div>
-        <div>
-          {NavLinks()}
-        </div>
+        <div>{NavLinks()}</div>
       </div>
     </div>
   );

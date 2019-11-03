@@ -5,7 +5,7 @@ import cookie from 'js-cookie';
 
 export const login = ({ token }: any) => {
   cookie.set('token', token, { expires: 1 });
-  Router.push('/profile');
+  Router.push('/file');
 };
 
 export const auth = (ctx: any) => {
