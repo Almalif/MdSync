@@ -1,35 +1,53 @@
 import React from 'react';
-import nextCookie from 'next-cookies';
-import { NextPageContext } from 'next';
 import { Button } from 'semantic-ui-react';
-import { Router } from 'next/router';
+import Router from 'next/router';
 
 import * as Network from '../../utils/Network';
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
-const Home = (props: any) => {
-  const createFile = props => {
-    Network.post('/files', {});
+const Home = () => {
+
+  const createFile = async () => {
+    try {
+      const response = await Network.post({
+        endpoint: '/files',
+        params: {
+          name: 'putos3',
+        },
+      });
+      if (response && response.data && response.data.id) {
+        await Router.push({
+          pathname: `/file/${response.data.id}`,
+
+        })
+      }
+    }
+    catch (e) {
+      toast(
+        {
+          type: 'warning',
+          icon: 'info',
+          title: 'Warning Toast',
+          description: e && e.response && e.response.data,
+          animation: 'bounce',
+          time: 5000,
+          size: 'tiny',
+        },
+        () => {},
+        () => {},
+        () => {},
+      );
+    }
+
   };
   return (
     <div>
       <Button size="massive" onClick={createFile}>
         Create file
       </Button>
+      <SemanticToastContainer/>
     </div>
   );
-};
-
-Home.getInitialProps = async (ctx: NextPageContext): Promise<any> => {
-  const { token } = nextCookie(ctx);
-
-  const redirectOnError = () =>
-    typeof window !== 'undefined'
-      ? Router.push('/login')
-      : ctx && ctx.res && ctx.res.writeHead(302, { Location: '/login' }).end();
-  if (!token) {
-    redirectOnError();
-  }
-  return { token };
 };
 
 export default Home;

@@ -6,14 +6,23 @@ import io from 'socket.io-client';
 import renderMd from '../../utils/Markdown';
 import MenuBar from './menuBar';
 
-const Document = () => {
+const Document = (props: any) => {
   const [md, setMd] = useState('');
 
-  console.log('CACACACACA');
-  // const socket = useState(io('https://7273602c.ngrok.io/'))[0];
+  console.log('CACACACACA', props);
+  const socket = useState(io(process.env.SERVER_URL))[0];
+  if (props.idFile) {
+    console.log('CONNNEECCTTTTTTTT', props.idFile);
+    socket.emit('join', props.idFile);
+    // socket.emit('update', props.idFile, 'envoiecacaenstring')
+    socket.on('update', (cequetaenvoye: any) => {
+      setMd(cequetaenvoye)
+      console.log('cequetaenvoye', cequetaenvoye);
+    });
+  }
+
 
   const saveFile = (): void => {
-    // socket.emit('update', 'cacaboudin');
   };
 
   return (
@@ -30,6 +39,7 @@ const Document = () => {
                   style={{ minHeight: '100%', minWidth: '100%' }}
                   placeholder="Write your markdown here"
                   onChange={(_, b) => {
+                    socket.emit('update', props.idFile, b.value as string);
                     setMd(b.value as string);
                   }}
                 />

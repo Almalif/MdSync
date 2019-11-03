@@ -1,8 +1,7 @@
 import React from 'react';
-import Router from 'next/router';
 import nextCookie from 'next-cookies';
 import { NextPageContext } from 'next';
-import { withAuthSync } from '../utils/auth';
+import redirect from '../utils/redirect';
 import Home from '../components/Home';
 import Layout from '../Layouts/Layout';
 
@@ -16,14 +15,10 @@ const HomePage = (): React.ReactNode => {
 
 HomePage.getInitialProps = async (ctx: NextPageContext): Promise<any> => {
   const { token } = nextCookie(ctx);
-
-  const redirectOnError = () =>
-    typeof window !== 'undefined'
-      ? Router.push('/login')
-      : ctx && ctx.res && ctx.res.writeHead(302, { Location: '/login' }).end();
   if (!token) {
-    redirectOnError();
+    await redirect('/login');
   }
+  return {}
 };
 
-export default withAuthSync(HomePage);
+export default HomePage ;
