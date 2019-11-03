@@ -1,5 +1,9 @@
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
-export default (path: string) => {
-  return  Router.push(path);
+export default async (url: string) => {
+  const router = useRouter();
+
+  if (typeof window !== 'undefined') {
+    await router.push(url);
+  }
 };

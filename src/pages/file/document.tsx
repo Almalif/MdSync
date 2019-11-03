@@ -8,22 +8,16 @@ import MenuBar from './menuBar';
 
 const Document = (props: any) => {
   const [md, setMd] = useState('');
-
-  console.log('CACACACACA', props);
+  const { idFile } = props;
   const socket = useState(io(process.env.SERVER_URL))[0];
-  if (props.idFile) {
-    console.log('CONNNEECCTTTTTTTT', props.idFile);
+  if (idFile) {
     socket.emit('join', props.idFile);
-    // socket.emit('update', props.idFile, 'envoiecacaenstring')
-    socket.on('update', (cequetaenvoye: any) => {
-      setMd(cequetaenvoye)
-      console.log('cequetaenvoye', cequetaenvoye);
+    socket.on('update', (data: any) => {
+      setMd(data);
     });
   }
 
-
-  const saveFile = (): void => {
-  };
+  const saveFile = (): void => {};
 
   return (
     <div style={{ height: '100%' }}>

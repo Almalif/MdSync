@@ -1,24 +1,19 @@
 import React from 'react';
-import nextCookie from 'next-cookies';
-import { NextPageContext } from 'next';
-import redirect from '../utils/redirect';
+import cookie from 'js-cookie';
 import Home from '../components/Home';
 import Layout from '../Layouts/Layout';
+import redirect from '../utils/redirect';
 
 const HomePage = (): React.ReactNode => {
+  const token = cookie.get('token');
+  if (!token) {
+    redirect('/login');
+  }
   return (
     <Layout>
       <Home />
     </Layout>
   );
-};
-
-HomePage.getInitialProps = async (ctx: NextPageContext): Promise<any> => {
-  const { token } = nextCookie(ctx);
-  if (!token) {
-    await redirect('/login');
-  }
-  return {};
 };
 
 export default HomePage;

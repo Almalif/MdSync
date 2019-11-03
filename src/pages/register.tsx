@@ -28,7 +28,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
         password: password[0],
       },
     });
-    if (response && response.data) redirect('/login');
+    if (response && response.data) await redirect('/login');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
     toast(
