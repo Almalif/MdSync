@@ -14,7 +14,7 @@ const Header = () => {
       </Head>
       <div className="ui secondary  menu">
         <div>
-          <Image src="static/assets/capsule.svg" width="30px" />
+          <Image src="/static/mdma.png" width="30px" />
         </div>
         <div>{NavLinks()}</div>
       </div>
