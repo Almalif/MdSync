@@ -7,6 +7,7 @@ import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import { post, MESSAGES_STATUS } from '../utils/Network';
 import { login } from '../utils/auth';
 import redirect from '../utils/redirect';
+import { withTranslation, PropsI18n } from '../utils/i18n';
 
 type SubmitProps = {
   mail: string;
@@ -51,17 +52,17 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   }
 };
 
-export default (): React.ReactNode => {
+const Login = ({ t }: PropsI18n) => {
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<MESSAGES_STATUS>(MESSAGES_STATUS.NONE);
-
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
-          <Image src="/static/mdma.png" />
-          Log-in to your account
+          <title>{t('title')}</title>
+          <Image src="static/mdma.png" />
+          {t('header')}
         </Header>
         <Form
           size="large"
@@ -79,7 +80,7 @@ export default (): React.ReactNode => {
               fluid
               icon="user"
               iconPosition="left"
-              placeholder="E-mail address"
+              placeholder={t('emailPlaceholder')}
             />
             <Form.Input
               onChange={(_, { value }) => {
@@ -88,19 +89,25 @@ export default (): React.ReactNode => {
               fluid
               icon="lock"
               iconPosition="left"
-              placeholder="Confirm Password"
+              placeholder={t('password')}
               type="password"
             />
             <Button color="teal" fluid size="large">
-              Login
+              {t('login')}
             </Button>
           </Segment>
         </Form>
         <Message>
-          <a href="/register">Sign Up</a>
+          <a href="/register">{t('register')}</a>
         </Message>
         <SemanticToastContainer />
       </Grid.Column>
     </Grid>
   );
 };
+
+Login.getInitialProps = async () => ({
+  namespacesRequired: ['common', 'login'],
+});
+
+export default withTranslation('login')(Login);

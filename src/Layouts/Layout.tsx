@@ -1,17 +1,17 @@
 import React from 'react';
-// import { Button, Icon } from 'semantic-ui-react';
 import '../pages/styles.css';
 import 'semantic-ui-css/semantic.min.css';
 import Header from '../components/Header';
 
 type PropsType = {
+  title?: string;
   children: React.ReactNode;
 };
 
-export default ({ children }: PropsType) => {
+export default ({ children, title }: PropsType) => {
   return (
     <div>
-      <Header />
+      <Header title={title} />
       <div>{children}</div>
     </div>
   );

@@ -7,6 +7,7 @@ import Layout from '../../Layouts/Layout';
 import Document from './document';
 import redirect from '../../utils/redirect';
 import { get } from '../../utils/Network';
+import { withTranslation, PropsI18n } from '../../utils/i18n';
 
 const getFileName = async (id: string | string[], setIdFile: any) => {
   try {
@@ -33,7 +34,7 @@ const getFileName = async (id: string | string[], setIdFile: any) => {
   return null;
 };
 
-const FilePage = () => {
+const FilePage = ({ t }: PropsI18n) => {
   const token = cookie.get('token');
   if (!token) {
     redirect('/login');
@@ -44,7 +45,7 @@ const FilePage = () => {
   if (fileId) getFileName(fileId, setIdFile);
 
   return (
-    <Layout>
+    <Layout title={t('title')}>
       <SemanticToastContainer />
       <div style={{ height: '90vh' }}>
         <Document idFile={idFile} />
@@ -53,4 +54,8 @@ const FilePage = () => {
   );
 };
 
-export default FilePage;
+FilePage.getInitialProps = async () => ({
+  namespacesRequired: ['common', 'file'],
+});
+
+export default withTranslation('file')(FilePage);

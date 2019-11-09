@@ -3,17 +3,22 @@ import cookie from 'js-cookie';
 import Home from '../components/Home';
 import Layout from '../Layouts/Layout';
 import redirect from '../utils/redirect';
+import { withTranslation, PropsI18n } from '../utils/i18n';
 
-const HomePage = (): React.ReactNode => {
+const HomePage = ({ t }: PropsI18n) => {
   const token = cookie.get('token');
   if (!token) {
     redirect('/login');
   }
   return (
-    <Layout>
+    <Layout title={t('title')}>
       <Home />
     </Layout>
   );
 };
 
-export default HomePage;
+HomePage.getInitialProps = async () => ({
+  namespacesRequired: ['common'],
+});
+
+export default withTranslation('common')(HomePage);
