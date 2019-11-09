@@ -6,6 +6,7 @@ import 'semantic-ui-css/semantic.min.css';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import { MESSAGES_STATUS, post } from '../utils/Network';
 import redirect from '../utils/redirect';
+import { withTranslation, PropsI18n } from '../utils/i18n';
 
 type SubmitProps = {
   mail: string;
@@ -49,7 +50,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   }
 };
 
-export default (): React.ReactNode => {
+const Register = ({ t }: PropsI18n) => {
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<Array<string>>(['', '']);
   const [error, setError] = useState<MESSAGES_STATUS>(MESSAGES_STATUS.NONE);
@@ -58,8 +59,9 @@ export default (): React.ReactNode => {
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
+          <title>{t('title')}</title>
           <Image src="/static/mdma.png" />
-          Sign-in
+          {t('header')}
         </Header>
         <Form
           size="large"
@@ -78,7 +80,7 @@ export default (): React.ReactNode => {
                 fluid
                 icon="user"
                 iconPosition="left"
-                placeholder="E-mail address"
+                placeholder={t('email')}
               />
             </Form.Group>
             <Form.Group widths="equal">
@@ -89,7 +91,7 @@ export default (): React.ReactNode => {
                 fluid
                 icon="lock"
                 iconPosition="left"
-                placeholder="Password"
+                placeholder={t('password')}
                 type="password"
                 error={error === MESSAGES_STATUS.ERROR}
               />
@@ -100,21 +102,27 @@ export default (): React.ReactNode => {
                 fluid
                 icon="lock"
                 iconPosition="left"
-                placeholder="Confirm Password"
+                placeholder={t('passwordConfirm')}
                 type="password"
                 error={error === MESSAGES_STATUS.ERROR}
               />
             </Form.Group>
             <Button color="teal" fluid size="large">
-              Register
+              {t('register')}
             </Button>
           </Segment>
         </Form>
         <Message>
-          <a href="/login">Sign In</a>
+          <a href="/login">{t('login')}</a>
         </Message>
         <SemanticToastContainer />
       </Grid.Column>
     </Grid>
   );
 };
+
+Register.getInitialProps = async () => ({
+  namespacesRequired: ['common', 'register'],
+});
+
+export default withTranslation('register')(Register);

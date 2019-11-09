@@ -6,11 +6,14 @@ import NavLinks from './nav';
 
 import 'semantic-ui-css/semantic.min.css';
 
-const Header = () => {
+type Props = {
+  title?: string;
+};
+const Header = ({ title }: Props) => {
   return (
     <div>
       <Head>
-        <title>Home</title>
+        <title>{title || 'Page'}</title>
       </Head>
       <div className="ui secondary  menu">
         <div>
