@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next ./src",
     "build": "next build ./src",
-    "start": "next start ./src",
+    "start": "next start ./src -p $PORT",
+    "heroku-postbuild": "yarn build",
     "lint": "eslint -c .eslintrc --ext=.tsx,.ts src",
     "size": "next build ./src && size-limit",
     "test": "echo \"[TODO] : TESTS TO WRITE\" && exit 0"
@@ -18,8 +19,10 @@
     "@types/react-html-parser": "^2.0.1",
     "@types/semantic-ui": "^2.2.7",
     "@types/socket.io-client": "^1.4.32",
+    "@zeit/next-css": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.19.0",
+    "bufferutil": "^4.0.1",
     "dotenv-webpack": "^1.7.0",
     "express": "^4.17.1",
     "js-cookie": "^2.2.1",
@@ -34,7 +37,8 @@
     "react-semantic-toasts": "^0.6.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.0",
+    "utf-8-validate": "^5.0.2"
   },
   "devDependencies": {
     "@size-limit/preset-app": "^2.1.6",
@@ -42,7 +46,6 @@
     "@types/react": "^16.9.9",
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
-    "@zeit/next-css": "^1.0.1",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-typescript": "^5.0.0",
     "eslint-config-prettier": "^6.4.0",
