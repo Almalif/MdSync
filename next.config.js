@@ -1,7 +1,7 @@
 const withCSS = require('@zeit/next-css');
-const path = require('path')
-const Dotenv = require('dotenv-webpack')
-require('dotenv').config()
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
+require('dotenv').config();
 
 module.exports = withCSS({
   target: 'serverless',
@@ -24,9 +24,9 @@ module.exports = withCSS({
       // Read the .env file
       new Dotenv({
         path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
-    ]
+        systemvars: true,
+      }),
+    ];
     return config;
   },
 });
