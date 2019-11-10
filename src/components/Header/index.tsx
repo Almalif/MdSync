@@ -14,8 +14,6 @@ const Header = ({ title }: Props) => {
     <div>
       <Head>
         <title>{title || 'Page'}</title>
-        <link rel="shortcut icon" href="/static/favicon.ico" />
-
       </Head>
       <div className="ui secondary  menu">
         <div>

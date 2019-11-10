@@ -61,7 +61,6 @@ const Login = ({ t }: PropsI18n) => {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
           <title>{t('title')}</title>
-          <link rel="shortcut icon" href="/favicon.ico" />
           <Image src="static/mdma.png" />
           {t('header')}
         </Header>
