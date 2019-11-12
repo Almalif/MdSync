@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import cookie from 'js-cookie';
+require('dotenv').config();
 
 type Props = {
   endpoint: string;
