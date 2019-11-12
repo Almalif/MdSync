@@ -29,7 +29,7 @@ export async function get({ endpoint, params }: Props) {
 
 export async function post({ endpoint, params }: Props) {
   const token = await cookie.get('token');
-  return await axios.post(`${process.env.REACT_APP_SERVER_URL}${endpoint}`, qs.stringify({ ...params }), {
+  return axios.post(`${process.env.REACT_APP_SERVER_URL}${endpoint}`, qs.stringify({ ...params }), {
     headers: {
       Authorization: `bearer ${token}`,
       'Access-Control-Allow-Origin': '*',
@@ -38,12 +38,3 @@ export async function post({ endpoint, params }: Props) {
   });
 }
 
-export async function put({ endpoint, token, params }: Props) {
-  const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}${endpoint}`, qs.stringify({ ...params }), {
-    headers: {
-      Authorization: `bearer ${token}`,
-      'Content-type': 'application/x-www-form-urlencoded',
-    },
-  });
-  return response && response.data;
-}
