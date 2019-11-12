@@ -1,27 +1,53 @@
 import React from 'react';
-import Head from 'next/head';
-import { Image } from 'semantic-ui-react';
-
+import { Image, Menu, Flag } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
+import i18n from '../../utils/i18n';
 import NavLinks from './nav';
-
 import 'semantic-ui-css/semantic.min.css';
+import { logout } from '../../utils/auth';
 
-type Props = {
-  title?: string;
-};
-const Header = ({ title }: Props) => {
+const Header = ({ title }: any) => {
+  const history = useHistory();
   return (
-    <div>
-      <Head>
+    <Menu>
+      <header>
         <title>{title || 'Page'}</title>
-      </Head>
+      </header>
       <div className="ui secondary  menu">
         <div>
-          <Image src="/static/mdma.png" width="30px" />
+          <Image
+            /* eslint-disable-next-line global-require */
+            src={require('../../static/mdma.png')}
+            width="30px"
+            alt="mdma"
+          />
         </div>
         <div>{NavLinks()}</div>
+        <Menu.Item
+          style={{ marginLeft: '10px', color: 'red' }}
+          onClick={() => {
+            logout();
+            history.push('/login');
+          }}
+        >
+          Disconnect
+        </Menu.Item>
+        <Menu.Item>
+          <Flag
+            name="gb"
+            onClick={async () => {
+              await i18n.changeLanguage('en');
+            }}
+          />
+          <Flag
+            name="france"
+            onClick={async () => {
+              await i18n.changeLanguage('fr');
+            }}
+          />
+        </Menu.Item>
       </div>
-    </div>
+    </Menu>
   );
 };
 

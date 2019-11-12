@@ -4,19 +4,21 @@ import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
+import { useHistory } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import { post, MESSAGES_STATUS } from '../utils/Network';
 import { login } from '../utils/auth';
-import redirect from '../utils/redirect';
-import { withTranslation, PropsI18n } from '../utils/i18n';
 
 type SubmitProps = {
   mail: string;
   password: string;
   setError: Function;
+  history: any;
 };
 
-const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
+const handleSubmit = async ({ mail, password, setError, history }: SubmitProps) => {
   setError(MESSAGES_STATUS.LOADING);
+
   if (mail === '' || password === '') {
     setError(MESSAGES_STATUS.ERROR);
     return;
@@ -31,7 +33,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
       },
     });
     login(response.data);
-    await redirect('/');
+    await history.push('/');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
     toast(
@@ -52,7 +54,9 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   }
 };
 
-const Login = ({ t }: PropsI18n) => {
+const Login = (rest: any) => {
+  const { t } = rest;
+  const history = useHistory();
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<MESSAGES_STATUS>(MESSAGES_STATUS.NONE);
@@ -61,12 +65,13 @@ const Login = ({ t }: PropsI18n) => {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
           <title>{t('title')}</title>
-          <Image src="static/mdma.png" />
+          {/* eslint-disable-next-line global-require */}
+          <Image src={require('../static/mdma.png')} alt="mdma" />
           {t('header')}
         </Header>
         <Form
           size="large"
-          onSubmit={() => handleSubmit({ mail, password, setError })}
+          onSubmit={() => handleSubmit({ mail, password, setError, history })}
           error={error === MESSAGES_STATUS.ERROR}
           success={error === MESSAGES_STATUS.OK}
           loading={error === MESSAGES_STATUS.LOADING}
@@ -105,9 +110,5 @@ const Login = ({ t }: PropsI18n) => {
     </Grid>
   );
 };
-
-Login.getInitialProps = async () => ({
-  namespacesRequired: ['common', 'login'],
-});
 
 export default withTranslation('login')(Login);

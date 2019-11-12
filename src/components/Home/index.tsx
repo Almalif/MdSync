@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Grid, Input } from 'semantic-ui-react';
-import Router from 'next/router';
 import { SemanticToastContainer, toast } from 'react-semantic-toasts';
+import { useHistory } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import * as Network from '../../utils/Network';
-import { withTranslation } from '../../utils/i18n';
 
-const createFile = async (filename: string) => {
+const createFile = async (filename: string, history: any) => {
   try {
     const response = await Network.post({
       endpoint: '/files',
@@ -14,7 +14,7 @@ const createFile = async (filename: string) => {
       },
     });
     if (response && response.data && response.data.id) {
-      await Router.push({
+      await history.push({
         pathname: `/file/${response.data.id}`,
       });
     }
@@ -37,6 +37,7 @@ const createFile = async (filename: string) => {
 };
 
 const Home = ({ t }: any) => {
+  const history = useHistory();
   const [filename, setFilename] = useState<string>('');
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
@@ -47,7 +48,7 @@ const Home = ({ t }: any) => {
             setFilename(value);
           }}
         />
-        <Button size="large" onClick={() => createFile(filename)}>
+        <Button size="large" onClick={() => createFile(filename, history)}>
           {t('creatFile')}
         </Button>
       </Grid.Column>
@@ -56,8 +57,4 @@ const Home = ({ t }: any) => {
   );
 };
 
-Home.getInitialProps = async () => ({
-  namespacesRequired: ['common', 'register'],
-});
-
-export default withTranslation('home')(Home as any);
+export default withTranslation('home')(Home);

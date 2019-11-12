@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 const links = [{ href: '/', label: 'Home' }].map(link => {
   return { ...link, key: `nav-link-${link.href}-${link.label}` };
@@ -8,9 +8,7 @@ const links = [{ href: '/', label: 'Home' }].map(link => {
 export default (): React.ReactNode[] => {
   return links.map(({ key, href, label }) => (
     <div className="item" key={key}>
-      <Link href={href}>
-        <a href={href}>{label}</a>
-      </Link>
+      <Link to={href}>{label}</Link>
     </div>
   ));
 };

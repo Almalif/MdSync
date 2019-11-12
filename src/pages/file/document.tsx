@@ -2,20 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Divider, Grid, Segment, Form, TextArea } from 'semantic-ui-react';
 import renderHTML from 'react-html-parser';
 import io from 'socket.io-client';
-
+import { withTranslation } from 'react-i18next';
 import renderMd from '../../utils/Markdown';
-import { withTranslation } from '../../utils/i18n';
 
 const Document = ({ t, idFile }: any) => {
+  const URL_SERVER: string = process.env.REACT_APP_SERVER_URL || '';
   const [md, setMd] = useState('');
-  // const { idFile } = props;
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState();
   const [ref, setRef] = useState(null);
   const [cursorPos, setCursorPos] = useState(0);
 
   useEffect(() => {
     if (!socket) {
-      setSocket(io(process.env.SERVER_URL));
+      setSocket(io(URL_SERVER));
     }
     return () => {
       if (socket) {
@@ -27,7 +26,7 @@ const Document = ({ t, idFile }: any) => {
   if (idFile) {
     socket.emit('join', idFile);
     socket.on('update', (data: any) => {
-      if (ref) {
+      if (ref && ref.ref && ref.ref.current) {
         ref.ref.current.selectionEnd = cursorPos;
         ref.ref.current.selectionStart = cursorPos;
       }

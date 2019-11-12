@@ -14,4 +14,4 @@ yarn dev -p PORT
 ```
 
 ##.env vars to set: 
-- SERVER_URL : url of the server
+- REACT_APP_SERVER_URL : url of the server
