@@ -8,8 +8,4 @@ const Index = () => {
   );
 };
 
-// Sider.getInitialProps = async ({ query }: any) => {
-//   return { name: query.name };
-// };
-
 export default Index;

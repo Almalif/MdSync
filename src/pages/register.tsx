@@ -4,17 +4,18 @@ import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
+import { withTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { MESSAGES_STATUS, post } from '../utils/Network';
-import redirect from '../utils/redirect';
-import { withTranslation, PropsI18n } from '../utils/i18n';
 
 type SubmitProps = {
   mail: string;
   password: Array<string>;
   setError: Function;
+  history: any;
 };
 
-const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
+const handleSubmit = async ({ mail, password, setError, history }: SubmitProps) => {
   setError(MESSAGES_STATUS.LOADING);
   if (mail === '' || password[0] !== password[1] || (password[0] === '' && password[1] === '')) {
     setError(MESSAGES_STATUS.ERROR);
@@ -29,7 +30,7 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
         password: password[0],
       },
     });
-    if (response && response.data) await redirect('/login');
+    if (response && response.data) await history.push('/login');
     setError(MESSAGES_STATUS.OK);
   } catch (e) {
     toast(
@@ -50,7 +51,8 @@ const handleSubmit = async ({ mail, password, setError }: SubmitProps) => {
   }
 };
 
-const Register = ({ t }: PropsI18n) => {
+const Register = ({ t }: any) => {
+  const history = useHistory();
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<Array<string>>(['', '']);
   const [error, setError] = useState<MESSAGES_STATUS>(MESSAGES_STATUS.NONE);
@@ -60,12 +62,13 @@ const Register = ({ t }: PropsI18n) => {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
           <title>{t('title')}</title>
-          <Image src="/static/mdma.png" />
+          {/* eslint-disable-next-line global-require */}
+          <Image src={require('../static/mdma.png')} alt="mdma" />
           {t('header')}
         </Header>
         <Form
           size="large"
-          onSubmit={() => handleSubmit({ mail, password, setError })}
+          onSubmit={() => handleSubmit({ mail, password, setError, history })}
           error={error === MESSAGES_STATUS.ERROR}
           success={error === MESSAGES_STATUS.OK}
           loading={error === MESSAGES_STATUS.LOADING}
@@ -120,9 +123,5 @@ const Register = ({ t }: PropsI18n) => {
     </Grid>
   );
 };
-
-Register.getInitialProps = async () => ({
-  namespacesRequired: ['common', 'register'],
-});
 
 export default withTranslation('register')(Register);

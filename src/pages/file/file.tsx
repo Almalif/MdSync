@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import { SemanticToastContainer, toast } from 'react-semantic-toasts';
-
+import { withTranslation } from 'react-i18next';
 import Layout from '../../Layouts/Layout';
 import Document from './document';
-import redirect from '../../utils/redirect';
 import { get } from '../../utils/Network';
-import { withTranslation, PropsI18n } from '../../utils/i18n';
 
 const getFileName = async (id: string | string[], setIdFile: any) => {
   try {
@@ -34,14 +31,14 @@ const getFileName = async (id: string | string[], setIdFile: any) => {
   return null;
 };
 
-const FilePage = ({ t }: PropsI18n) => {
+const FilePage = (params: any) => {
+  const { t, history, match } = params;
   const token = cookie.get('token');
   if (!token) {
-    redirect('/login');
+    history.push('/login');
   }
   const [idFile, setIdFile] = useState<string | null>(null);
-  const router = useRouter();
-  const fileId = router && router.query && router.query.id;
+  const fileId = match && match.params && match.params.id;
   if (fileId) getFileName(fileId, setIdFile);
 
   return (
@@ -53,9 +50,5 @@ const FilePage = ({ t }: PropsI18n) => {
     </Layout>
   );
 };
-
-FilePage.getInitialProps = async () => ({
-  namespacesRequired: ['common', 'file'],
-});
 
 export default withTranslation('file')(FilePage);
