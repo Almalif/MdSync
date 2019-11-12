@@ -37,4 +37,3 @@ export async function post({ endpoint, params }: Props) {
     },
   });
 }
-
