@@ -35,9 +35,7 @@ const handleSubmit = async ({ mail, password, setError, history }: SubmitProps) 
     login(response.data);
     await history.push('/');
     setError(MESSAGES_STATUS.OK);
-  } catch (e) {    console.log("e", e)
-
-
+  } catch (e) {
     toast(
       {
         type: 'warning',
