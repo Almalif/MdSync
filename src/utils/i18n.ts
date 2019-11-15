@@ -25,7 +25,7 @@ i18n
         home: homeen,
         file: fileen,
       },
-      'fr-FR': {
+      fr: {
         common,
         login,
         register,
