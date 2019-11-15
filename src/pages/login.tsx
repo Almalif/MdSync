@@ -85,7 +85,7 @@ const Login = (rest: any) => {
               fluid
               icon="user"
               iconPosition="left"
-              placeholder={process.env.REACT_APP_SERVER_URL}
+              placeholder={t('emailPlaceholder')}
             />
             <Form.Input
               onChange={(_, { value }) => {
