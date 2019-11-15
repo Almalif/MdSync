@@ -35,7 +35,9 @@ const handleSubmit = async ({ mail, password, setError, history }: SubmitProps) 
     login(response.data);
     await history.push('/');
     setError(MESSAGES_STATUS.OK);
-  } catch (e) {
+  } catch (e) {    console.log("e", e)
+
+
     toast(
       {
         type: 'warning',
@@ -85,7 +87,7 @@ const Login = (rest: any) => {
               fluid
               icon="user"
               iconPosition="left"
-              placeholder={t('emailPlaceholder')}
+              placeholder={process.env.REACT_APP_SERVER_URL}
             />
             <Form.Input
               onChange={(_, { value }) => {
